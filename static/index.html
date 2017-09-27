@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bob The Builder</title>
+	<!--Three.js-->
+    <script src="libs/three.js"></script>
+	<!--Czcionka-->
+    <script src="font/BenchNine_Regular.js"></script>
+	<!--Klasa główna-->
+    <script src="Main.js"></script>
+	<!--Intro - wykorzystanie TextGeometry-->
+    <script src="classes/Intro.js"></script>
+	<!--Działanie projektu-->
+    <script src="classes/Game.js"></script>
+	<!--Elementy siatki-->
+    <script src="classes/Element.js"></script>
+	<!--Klocek-->
+    <script src="classes/Klocek.js"></script>
+    <!--Komunikacja z serwerem-->
+    <script src="classes/Net.js"></script>
+	<!--Socket.io-->
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script>
+		var game = null;
+		var userName = null;
+		var adminState = false;
+		var introExist = true;
+        window.addEventListener("load", function() {
+			document.getElementById("loginScreen").style.display = "none";
+			document.getElementById("statements").style.display = "none";
+            var main = new Main();
+            var net = new Net();
+        })
+    </script> 
+	<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body oncontextmenu="return false;">
+	<div id="mainScreen">
+		<div id="statements">
+			<div id="header">Zalogowani użytkownicy</div>
+			<div id="userInfo"></div>
+		</div>
+		<div id="field"></div>
+		<button id="save">SAVE</button>
+	</div>
+	<div id="loginScreen">
+		<div id="mainProcesses">
+			<input type="text" id="username" class="main" style="width: 24.5vw;" /><br />
+			<input type="button" value="LOGUJ" id="login" class="main" /><br />
+		</div>
+	</div>
+</body>
+</html>
