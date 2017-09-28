@@ -180,7 +180,7 @@
 				}
 			}
         }
-    }
+    })
 
     function move() {
     	if (adminState == false) {
@@ -305,7 +305,8 @@
 				}
                 break;
         }
-    }
+    })
+
 	document.addEventListener("keyup", function(event) {
 		var keyCode = event.which;
         switch (keyCode) {
@@ -316,7 +317,7 @@
 				}
 				break;
 		}
-	}
+	})
 
 	// Save data on server
 	var save = [];
