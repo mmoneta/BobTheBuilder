@@ -2,12 +2,15 @@
     client = io();
 	var counter = 1;
 	var newBlock, importBlock, pozX, pozY, pozZ, myColor;
+
     client.on("onconnect", function (data) {
         console.log(data.clientName);
     })
+
 	client.on("login", function (data) {
 		document.getElementById("userInfo").innerHTML += "<p>" + data.login + "</p><br />";
     })
+
 	client.on("positions", function (data) {
 	    if (introExist == false) {
 	        newBlock = game.create(data.posX, data.posY, data.posZ, 1, data.myColor);
@@ -18,6 +21,7 @@
 	        myColor = data.myColor;
 	    }
     })
+
 	client.on("move", function (data) {
 		newBlock.position.x = data.posX;
 		newBlock.position.y = data.posY;
@@ -26,10 +30,12 @@
 		pozY = data.posY;
 		pozZ = data.posZ;
     })
+
 	client.on("colors", function (data) {
 		newBlock.material.color.setHex(data.myColor);
 		myColor = data.myColor;
     })
+
 	client.on("zoom", function (data) {
 		counter++;
 		if (counter <= 4) {
@@ -44,9 +50,11 @@
 			counter = 1;
 		}
     })
+
 	client.on("rotate", function (data) {
 		newBlock.rotateY(Math.PI / 2);
 	})
+
 	var user = ["All"];
 	var allObject = [];
 	client.on("allData", function (data) {
@@ -60,9 +68,8 @@
 	                    exist = true;
 	                }
 	            }
-	            if (exist == false && nick != "admin" && nick != "administrator") {
+	            if (exist == false && nick != "admin" && nick != "administrator")
 	                user.push(nick);
-	            }
 	            var pozX = data.data[i].pozX;
 	            var pozY = data.data[i].pozY;
 	            var pozZ = data.data[i].pozZ;
@@ -83,6 +90,7 @@
 	                exist = true;
 	            }
 	        }
+	        // Select user
 	        var select = document.createElement('select');
 	        select.id = "adminSelect";
 	        select.setAttribute("name", "Users");
@@ -102,6 +110,7 @@
             });
 	    }
 	})
+
 	client.on("userData", function (data) {
 	    if (adminState == true) {
 			console.log(data.data)
@@ -124,6 +133,7 @@
 	        }
 	    }
 	})
+
 	client.on("thisData", function (data) {
 	    if (adminState == false) {
             console.log(data.data)

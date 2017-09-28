@@ -1,14 +1,14 @@
 ﻿function Element(posX, posZ, step) {
-	// Materiał
+	// Material
     var lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
-	// Geometria
+	// Geometry
     var geometry = new THREE.Geometry();
     geometry.vertices.push(new THREE.Vector3(0, 0, 0));
     geometry.vertices.push(new THREE.Vector3(step, 0, 0));
     geometry.vertices.push(new THREE.Vector3(step, 0, step));
     geometry.vertices.push(new THREE.Vector3(0, 0, step));
     geometry.vertices.push(new THREE.Vector3(0, 0, 0));
-	// Linia
+	// Line
     var line = new THREE.Line(geometry, lineMaterial);
     line.position.set(posX - step / 2, 0, posZ - step / 2)
     line.name = "line"
@@ -20,7 +20,7 @@
     var cylinder2 = new THREE.Mesh(cylinder_geometry);
     var cylinder3 = new THREE.Mesh(cylinder_geometry);
     var cylinder4 = new THREE.Mesh(cylinder_geometry);
-    // Ustawiamy pozycje
+    // Set positions
     plane.position.set(0, 0, 0)
     plane.rotateX(Math.PI / 2);
     cylinder1.position.set(-12.5, 2.5, -12.5);

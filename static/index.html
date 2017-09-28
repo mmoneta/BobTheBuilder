@@ -2,23 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Bob The Builder</title>
-	<!--Three.js-->
+	<!-- Three.js -->
     <script src="libs/three.js"></script>
-	<!--Czcionka-->
+	<!-- Font -->
     <script src="font/BenchNine_Regular.js"></script>
-	<!--Klasa główna-->
+	<!-- Main class -->
     <script src="Main.js"></script>
-	<!--Intro - wykorzystanie TextGeometry-->
+	<!-- Intro -->
     <script src="classes/Intro.js"></script>
-	<!--Działanie projektu-->
+	<!-- Project activity -->
     <script src="classes/Game.js"></script>
-	<!--Elementy siatki-->
+	<!-- Grid elements -->
     <script src="classes/Element.js"></script>
-	<!--Klocek-->
+	<!-- Block -->
     <script src="classes/Klocek.js"></script>
-    <!--Komunikacja z serwerem-->
+    <!-- Communication with the server -->
     <script src="classes/Net.js"></script>
-	<!--Socket.io-->
+	<!-- Socket.io -->
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script>
 		var game = null;
@@ -32,12 +32,12 @@
             var net = new Net();
         })
     </script> 
-	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body oncontextmenu="return false;">
 	<div id="mainScreen">
 		<div id="statements">
-			<div id="header">Zalogowani użytkownicy</div>
+			<div id="header">Active users</div>
 			<div id="userInfo"></div>
 		</div>
 		<div id="field"></div>

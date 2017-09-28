@@ -1,15 +1,17 @@
 ﻿var http = require("http");
 var fs = require("fs");
+var mime = require('mime-types');
 var qs = require("querystring");
 var socketio = require("socket.io");
 var mongoose = require("mongoose");
-// Utworzenie bazy danych "users"
+// Utworzenie bazy danych
 mongoose.connect('mongodb://localhost/elements');
 // Utworzenie tzw. modeli dokumentów - odpowiedników  tabel
 var Models = require("./database/Models.js")(mongoose);
 var Operations = require("./database/Operations.js");
 // Obiekty bazy danych Mongo
 var db, opers;
+
 // Serwer
 var server = http.createServer(function (request, response) {
     console.log("Żądany przez przeglądarkę adres: " + request.url);
@@ -29,14 +31,14 @@ var server = http.createServer(function (request, response) {
                     }
                 })
             }
-            else if (request.url.indexOf(".js") != -1) {
+            else {
                 request.url = request.url.replace(/%20/g, " ");
                 var path = "static/" + request.url;
                 var filestream = fs.createReadStream(path);
                 filestream.on("open", function () {
                     var stats = fs.statSync(path);
                     response.writeHead(200, {
-                        'Content-Type': 'application/javascript',
+                        'Content-Type': mime.lookup(path),
                         'Content-Length': stats.size
                     });
                     filestream.pipe(response);
@@ -46,13 +48,6 @@ var server = http.createServer(function (request, response) {
                     console.log(err);
                 });
             }
-			else if (request.url === "/style.css") {
-                fs.readFile("static/style.css", function (error, data) {
-                    response.writeHead(200, { 'Content-Type': 'text/css' });
-                    response.write(data);
-                    response.end();
-                })
-            }
             break;
         case "POST":
 			break;
@@ -60,6 +55,7 @@ var server = http.createServer(function (request, response) {
 });
 
 server.listen(3000);
+
 // Socket.io
 var io = socketio.listen(server);
 io.sockets.on("connection", function (client) {    
@@ -138,6 +134,7 @@ io.sockets.on("connection", function (client) {
 	    }
 	})
 })
+
 // MongoDB
 function connectToMongo() {
     db = mongoose.connection;

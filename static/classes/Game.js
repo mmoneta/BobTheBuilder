@@ -6,20 +6,19 @@
     var step = 50;
     var pointX = height / 2 - height;
     var pointZ = width / 2 - width;
-    // Plansza
+    // Field
     for (var i = 0; i < width; i += step) {
         for (var j = 0; j < height; j += step) {
             Element(pointX + i, pointZ + j, step)
         }
     }
 	this.create = function (posX, posY, posZ, size, myColor) {
-		// Materiał
-		if (myColor == null) {
+		// Material
+		if (myColor == null)
 			var material = new THREE.MeshPhongMaterial({ color: parseInt(colors[color_counter]) });
-		} 
-		else {
+		else
 			var material = new THREE.MeshPhongMaterial({ color: parseInt(myColor) });
-		}
+        // Merge elements
         var singleGeometry = new THREE.Geometry();
         for (var i = 0; i < size; i++) {
             var newElement = new Klocek(myColor)

@@ -1,20 +1,20 @@
-﻿// Export obiektu zawierającego podstawowe operacje na bazie MongoDB za pomocą biblioteki Mongoose
+﻿// Export object containing basic MongoDB operations using the Mongoose library
 module.exports = function () {
     var opers = {
-        // wstawienie jednego "rekordu" do dokumentu - INSERT
+        // inserting one record into the document - INSERT
         InsertOne: function (data) {
             data.save(function (error, data, dodanych) {
                 console.log("Dodano: " + data)
             })
         },
-        // pobranie wszystkich "rekordów" z dokumentu - SELECT
+        // download all "records" from the document - SELECT
         SelectAll: function (Model) {
             Model.find({},function (err, data) {
                 if (err) return console.error(err);
                 console.log(data);
             })
         },
-        // pobranie z ograniczeniem ilości i warunkiem - WHERE, LIMIT
+        // download with limited quantity and condition - WHERE, LIMIT
         SelectAndLimit: function (Model, count, callback) {
             var obj = {};
             Model.find({}, function (err, data) {
@@ -24,7 +24,7 @@ module.exports = function () {
                 else {
                     obj.data = data
                 }
-                // funkcja zwracająca dane na zewnątrz
+                // function returning data outside
                 callback(data);
             }).limit(count)
         },
@@ -37,11 +37,11 @@ module.exports = function () {
                 else {
                     obj.data = data
                 }
-                // funkcja zwracająca dane na zewnątrz
+                // function returning data outside
                 callback(data);
             }).limit(count)
         },
-        // usuniecie danych - DELETE
+        // remove data - DELETE
         DeleteAll: function (Model) {
 			Model.remove(function (err, data) {
 				if (err) return console.error(err);

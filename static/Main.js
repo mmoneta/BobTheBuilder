@@ -1,17 +1,20 @@
 ﻿function Main() {
-	// Inicjalizacja zmiennych
+	// Initializing variables
 	var pozX, pozY, pozZ, counter, currentBlock;
 	var options = false;
 	var block = false;
 	var rotateCounter = 0;
-	// Widok
+
+	// View
     degreeVertical = 400;
     degreeHorizontal = 4.2;
     distance = 1600;
     centre = new THREE.Vector3(0, 0, 0);
-	// Scena
+
+	// Scene
     scene = new THREE.Scene();
-	// Kamera ortograficzna
+
+	// Orthographic Camera
     camera = new THREE.OrthographicCamera(
 		(window.innerWidth) / -2,
 		(window.innerWidth) / 2,
@@ -20,41 +23,46 @@
 		-10000,
 		10000
 	);
+
 	// Renderer
-    renderer = new THREE.WebGLRenderer({ antialias: true });
+    var renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setClearColor(0x000000, 0);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMapEnabled = true;
     renderer.shadowMapType = THREE.PCFSoftShadowMap;
+
 	// Raycasting
     raycaster = new THREE.Raycaster(); // obiekt symulujący "rzucanie" promieni
     mouseVector = new THREE.Vector2();
 	var currentBlock = '';
     document.getElementById("field").appendChild(renderer.domElement);
-    // Światła:
-	// czerwone
+
+    // Lights
     var redLight = new THREE.SpotLight(0xff0000, 3, 2000, 3.14);
     redLight.position.set(700, 200, 800);
     redLight.lookAt(centre);
     scene.add(redLight);
-	// zielone
+
     var greenLight = new THREE.SpotLight(0x00ff00, 3, 2000, 3.14);
     greenLight.position.set(-700, 200, 800);
     greenLight.lookAt(centre);
     scene.add(greenLight);
-	// niebieskie
+
     var blueLight = new THREE.SpotLight(0x0000ff, 3, 1200, 3.14);
     blueLight.position.set(0, 200, 800);
     blueLight.lookAt(centre);
     scene.add(blueLight);
+
 	// Intro
-    intro = new Intro();
-	// Pozycja kamery
+    var intro = new Intro(renderer);
+
+	// Camera position
     camera.position.x = Math.cos(degreeHorizontal / Math.PI) * distance;
     camera.position.y = degreeVertical;
     camera.position.z = Math.sin(degreeHorizontal / Math.PI) * distance;
     camera.lookAt(centre);
-	// Logowanie
+
+	// Log in
     document.getElementById("login").addEventListener("click", function () {
     	userName = document.getElementById("username").value;
         if (userName != '') {
@@ -75,9 +83,9 @@
 				break;
         }
 	})
-	// Zdarzenia
-    document.addEventListener("mousedown", onMouseDown);
-    function onMouseDown(event) {
+
+	// Events
+    document.addEventListener("mousedown", function(event) {
         mouseVector.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouseVector.y = -(event.clientY / (window.innerHeight - 5)) * 2 + 1;
         raycaster.setFromCamera(mouseVector, camera);
@@ -102,8 +110,8 @@
 			if (options == true && block == false) {
 				var obj = intersects[0].object;
 				var counter = 0;
-				switch(event.button) {	
-					// dodawanie klocka
+				switch (event.button) {	
+					// adding new block
 					case 0:
 						if (obj.name != "line" && obj.name == "fillMesh") {
 							currentBlock = game.create(obj.position.x, 0, obj.position.z, 1);
@@ -146,13 +154,13 @@
 							}
 						}
 						break;
-					// wybieranie klocka
+					// select current block
 					case 1: 
 						if (obj.name == "klocek") {
 							currentBlock = obj;
 						}
 						break;
-					// usuwanie klocka
+					// remove current block
 					case 2:
 						for (var i = 0; i < scene.children.length; i++) {
 							if (obj.name == "klocek" && scene.children[i].name == "klocek" && scene.children[i].position.x == obj.position.x && scene.children[i].position.z == obj.position.z && (scene.children[i].position.y < obj.position.y || obj.position.y == 0)) {
@@ -173,6 +181,7 @@
 			}
         }
     }
+
     function move() {
     	if (adminState == false) {
 	        client.emit("move", {
@@ -182,13 +191,12 @@
 	        })
 	    }
     }
-	// Klawiatura
-	document.addEventListener("keydown", onKeyDown);
-    function onKeyDown(event) {
-        var keyCode = event.which; // kod klawisza
-        console.log(keyCode);
+
+	// Keybord
+	document.addEventListener("keydown", function(event) {
+        var keyCode = event.which;
         switch (keyCode) {
-			// Zmiana koloru (C)
+			// Color change (C)
             case 67:
                 color_counter++;
                 if (color_counter == 4) 
@@ -203,7 +211,7 @@
 				    })
 				}
                 break;
-			// Pozycja kamery (strzałki)
+			//  Positioning of camera (arrows)
             case 37:
                 degreeHorizontal += 0.1;
                 camera.position.x = Math.cos(degreeHorizontal / Math.PI) * distance;
@@ -226,7 +234,7 @@
                 camera.position.y = degreeVertical;
                 camera.lookAt(centre);
                 break;
-			// Pozycjonowanie klocka (WSAD)
+			// Positioning (WSAD)
 			case 87:
 			    currentBlock.position.z -= 25;
 				currentBlock.userData.pozZ -= 25;
@@ -247,7 +255,7 @@
 				currentBlock.userData.pozX += 25;
 			    move();
                 break;
-			// Zmiana wielkości klocka (T)
+			//  Resizing (T)
 			case 84:
 				counter++;
 				var rotate = currentBlock.userData.rotate;
@@ -267,14 +275,13 @@
 				for (var i = 0; i < rotate; i++) {
 					currentBlock.rotateY(Math.PI / 2);
 				}
-				//
 				if (adminState == false) {
 				    client.emit("zoom", {
 				        zoom: "yes"
 				    })
 				}
                 break;
-			// Obrót klocka (Q)
+			// Rotate (Q)
 			case 81:
 			    currentBlock.rotateY(Math.PI / 2);
 			    if (adminState == false) {
@@ -290,7 +297,7 @@
 					currentBlock.userData.rotate = rotateCounter;
 			    }
                 break;
-			// Informacja o zalogowanych użytkownikach
+			// Information about other active users
 			case 85:
 				if (options == true) {
 					document.getElementById("statements").style.display = "block";
@@ -299,9 +306,8 @@
                 break;
         }
     }
-	document.addEventListener("keyup", onKeyUp);
-	function onKeyUp(event) {
-		var keyCode = event.which; // kod klawisza
+	document.addEventListener("keyup", function(event) {
+		var keyCode = event.which;
         switch (keyCode) {
 			case 85:
 				if (options == true) {
@@ -311,7 +317,8 @@
 				break;
 		}
 	}
-	// Zapis danych
+
+	// Save data on server
 	var save = [];
     document.getElementById("save").addEventListener("click", function () {
 		save = [];

@@ -1,4 +1,4 @@
-﻿// Utworzenie tzw. schematu i modelu (schemat określa budowę dokumentu, wymagania i typy danych)
+﻿// Create schema and model (schema defines document structure, requirements and data types)
 module.exports = function (mongoose) {
     var Schema = mongoose.Schema;
     var playerSchema = new Schema(
@@ -11,7 +11,7 @@ module.exports = function (mongoose) {
 			rotate: { type: Number, min: 0, max: 3 },
             color: { type: String }
         });
-    // Obiekt, który chcemy wyeksportować z tego pliku
+    // The object we want to export from this file
     var models = {
         Player: mongoose.model("Player", playerSchema)  
     }
