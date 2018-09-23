@@ -79,7 +79,7 @@
         break;
       default:
         adminState = false;
-		break;
+        break;
     }
     document.getElementById("save").style.display = "block";
   })
@@ -93,7 +93,7 @@
     if (intersects.length > 0) {
       var selectedObject = scene.getObjectByName("intro");
       if (intersects[0].object == selectedObject) {
-	    document.getElementById("loginScreen").style.display = "flex";
+        document.getElementById("loginScreen").style.display = "flex";
         scene.remove(selectedObject);
         scene.remove(greenLight);
         scene.remove(redLight);
@@ -107,105 +107,105 @@
         light.lookAt(centre);
         scene.add(light);
       }
-	  if (options == true && block == false) {
-	    var obj = intersects[0].object;
-		var counter = 0;
-	    switch (event.button) {	
-		  // adding new block
-		  case 0:
-		    if (obj.name != "line" && obj.name == "fillMesh") {
-			  currentBlock = game.create(obj.position.x, 0, obj.position.z, 1);
-			  scene.add(currentBlock);
-			  client.emit("positions", {
-			    id: currentBlock.id,
-		        posX: obj.position.x,
-			    posY: 0,
-			    posZ: obj.position.z,
-			    myColor: colors[color_counter]
-			  })
-			  counter = 1;
-			  pozX = obj.position.x;
-			  pozY = 0;
-			  pozZ = obj.position.z;
-			}
-			else if (obj.name != "line" && obj.name == "block") {
-			  var exist = false;
-			  for (var i = 0; i < scene.children.length; i++) {
-			    if (scene.children[i].position.x == obj.position.x && scene.children[i].position.z == obj.position.z && scene.children[i].position.y == obj.position.y + 30) {
-				  exist = true;
-				  break;
-				}
-			  }
-			  if (exist == false) {
-			    currentBlock = game.create(obj.position.x, obj.position.y + 30, obj.position.z, 1);
-				scene.add(currentBlock);
-				counter = 1;
-				pozX = obj.position.x;
-				pozY = obj.position.y + 30;
-				pozZ = obj.position.z;
-			    client.emit("positions", {
-				  posX: pozX,
-				  posY: pozY,
-				  posZ: pozZ,
-				  myColor: colors[color_counter]
-				})
-			  }
-		    }
-		    break;
-		  // select current block
-		  case 1: 
-		    if (obj.name == "block") {
-			  currentBlock = obj;
-			}
-		    break;
-		  // remove current block
-		  case 2:
-		    for (var i = 0; i < scene.children.length; i++) {
-			  if (obj.name == "block" && scene.children[i].name == "block" && scene.children[i].position.x == obj.position.x && scene.children[i].position.z == obj.position.z && (scene.children[i].position.y < obj.position.y || obj.position.y == 0)) {
-			    counter++;
-				break;
-			  }
-			}
-			for (var i = 0; i < scene.children.length; i++) {
-			  if (obj.name == "block" && scene.children[i].name == "block" && scene.children[i].position.x == obj.position.x && scene.children[i].position.z == obj.position.z && scene.children[i].position.y > obj.position.y) {
-			    counter--;
-				break;
-			  }
-			}
-			if (counter == 1)
-			  scene.remove(obj);
-			break;
+      if (options == true && block == false) {
+        var obj = intersects[0].object;
+        var counter = 0;
+        switch (event.button) {	
+          // adding new block
+          case 0:
+            if (obj.name != "line" && obj.name == "fillMesh") {
+              currentBlock = game.create(obj.position.x, 0, obj.position.z, 1);
+              scene.add(currentBlock);
+              client.emit("positions", {
+                id: currentBlock.id,
+                posX: obj.position.x,
+                posY: 0,
+                posZ: obj.position.z,
+                myColor: colors[color_counter]
+              })
+              counter = 1;
+              pozX = obj.position.x;
+              pozY = 0;
+              pozZ = obj.position.z;
+            }
+            else if (obj.name != "line" && obj.name == "block") {
+              var exist = false;
+              for (var i = 0; i < scene.children.length; i++) {
+                if (scene.children[i].position.x == obj.position.x && scene.children[i].position.z == obj.position.z && scene.children[i].position.y == obj.position.y + 30) {
+                  exist = true;
+                  break;
+                }
+              }
+              if (exist == false) {
+                currentBlock = game.create(obj.position.x, obj.position.y + 30, obj.position.z, 1);
+                scene.add(currentBlock);
+                counter = 1;
+                pozX = obj.position.x;
+                pozY = obj.position.y + 30;
+                pozZ = obj.position.z;
+                client.emit("positions", {
+                  posX: pozX,
+                  posY: pozY,
+                  posZ: pozZ,
+                  myColor: colors[color_counter]
+                })
+              }
+            }
+            break;
+          // select current block
+          case 1: 
+            if (obj.name == "block") {
+              currentBlock = obj;
+            }
+            break;
+         // remove current block
+          case 2:
+            for (var i = 0; i < scene.children.length; i++) {
+              if (obj.name == "block" && scene.children[i].name == "block" && scene.children[i].position.x == obj.position.x && scene.children[i].position.z == obj.position.z && (scene.children[i].position.y < obj.position.y || obj.position.y == 0)) {
+                counter++;
+                break;
+              }
+            }
+            for (var i = 0; i < scene.children.length; i++) {
+              if (obj.name == "block" && scene.children[i].name == "block" && scene.children[i].position.x == obj.position.x && scene.children[i].position.z == obj.position.z && scene.children[i].position.y > obj.position.y) {
+                counter--;
+                break;
+              }
+            }
+            if (counter == 1)
+              scene.remove(obj);
+            break;
         }
-	  }
+      }
     }
   })
 
   function move() {
-  	client.emit("move", {
-	  posX: currentBlock.position.x,
-	  posY: currentBlock.position.y,
-	  posZ: currentBlock.position.z
-	})
+    client.emit("move", {
+      posX: currentBlock.position.x,
+      posY: currentBlock.position.y,
+      posZ: currentBlock.position.z
+    })
   }
 
   // Keyboard
   document.addEventListener("keydown", function(event) {
     var keyCode = event.which;
     switch (keyCode) {
-	  // Color change (C)
+      // Color change (C)
       case 67:
         color_counter++;
         if (color_counter == 4) 
-		  color_counter = 0;
+          color_counter = 0;
         if (currentBlock != null) {
           currentBlock.material.color.setHex(colors[color_counter]);
-		  currentBlock.userData.color = colors[color_counter];
-		}
-		client.emit("colors", {
-	      myColor: colors[color_counter]
-		})
+          currentBlock.userData.color = colors[color_counter];
+        }
+        client.emit("colors", {
+          myColor: colors[color_counter]
+        })
         break;
-	    //  Positioning of camera (arrows)
+      //  Positioning of camera (arrows)
       case 37:
         degreeHorizontal += 0.1;
         camera.position.x = Math.cos(degreeHorizontal / Math.PI) * distance;
@@ -229,70 +229,70 @@
         camera.lookAt(centre);
         break;
       // Positioning (WSAD)
-	  case 87:
-	    currentBlock.position.z -= 25;
-		currentBlock.userData.pozZ -= 25;
-		move();
+      case 87:
+        currentBlock.position.z -= 25;
+        currentBlock.userData.pozZ -= 25;
+        move();
         break;
       case 83:
         currentBlock.position.z += 25;
-		currentBlock.userData.pozZ += 25;
-		move();
+        currentBlock.userData.pozZ += 25;
+        move();
         break;
       case 65:
         currentBlock.position.x -= 25;
-		currentBlock.userData.pozX -= 25;
-		move();
+        currentBlock.userData.pozX -= 25;
+        move();
         break;
       case 68:
         currentBlock.position.x += 25;
-		currentBlock.userData.pozX += 25;
-		move();
+        currentBlock.userData.pozX += 25;
+        move();
         break;
-	  //  Resizing (T)
-	  case 84:
-		counter++;
-		var rotate = currentBlock.userData.rotate;
-		if (counter <= 4) {
-		  scene.remove(currentBlock);
-	      currentBlock = game.create(pozX, pozY, pozZ, counter);
-	      scene.add(currentBlock);
-		}
-		else {
-		  scene.remove(currentBlock);
-		  currentBlock = game.create(pozX, pozY, pozZ, 1);
-		  scene.add(currentBlock);
-	      counter = 1;
-	    }
-		currentBlock.userData.size = counter;
-		currentBlock.userData.rotate = rotate;
-		for (var i = 0; i < rotate; i++) {
-		  currentBlock.rotateY(Math.PI / 2);
-		}
-		client.emit("zoom", {
-		  zoom: "yes"
-		})
-		break;
+      //  Resizing (T)
+      case 84:
+        counter++;
+        var rotate = currentBlock.userData.rotate;
+        if (counter <= 4) {
+          scene.remove(currentBlock);
+          currentBlock = game.create(pozX, pozY, pozZ, counter);
+          scene.add(currentBlock);
+        }
+        else {
+          scene.remove(currentBlock);
+          currentBlock = game.create(pozX, pozY, pozZ, 1);
+          scene.add(currentBlock);
+          counter = 1;
+        }
+        currentBlock.userData.size = counter;
+        currentBlock.userData.rotate = rotate;
+        for (var i = 0; i < rotate; i++) {
+          currentBlock.rotateY(Math.PI / 2);
+        }
+        client.emit("zoom", {
+          zoom: "yes"
+        })
+        break;
       // Rotate (Q)
       case 81:
-	    currentBlock.rotateY(Math.PI / 2);
-	    client.emit("rotate", {
-		  rotate: "yes"
-		})
-		if (rotateCounter <= 2) {
-		  rotateCounter++;
-		}
-		else {
-		  rotateCounter = 0;
-		}
-		currentBlock.userData.rotate = rotateCounter;
+        currentBlock.rotateY(Math.PI / 2);
+        client.emit("rotate", {
+          rotate: "yes"
+        })
+        if (rotateCounter <= 2) {
+          rotateCounter++;
+        }
+        else {
+          rotateCounter = 0;
+        }
+        currentBlock.userData.rotate = rotateCounter;
         break;
-	  // Information about other active users
-	  case 85:
-		if (options == true) {
-		  document.getElementById("statements").style.display = "block";
-		  block = true;
-		}
+      // Information about other active users
+      case 85:
+        if (options == true) {
+          document.getElementById("statements").style.display = "block";
+          block = true;
+        }
         break;
     }
   });
@@ -300,32 +300,32 @@
   document.addEventListener("keyup", function(event) {
     var keyCode = event.which;
     switch (keyCode) {
-	  case 85:
-	    if (options == true) {
-		  document.getElementById("statements").style.display = "none";
-		  block = false;
-		}
-		break;
-	}
+      case 85:
+        if (options == true) {
+          document.getElementById("statements").style.display = "none";
+          block = false;
+        }
+        break;
+    }
   });
 
   // Save data on server
   document.getElementById("save").addEventListener("click", function () {
     save = [];
     for (var i = 0; i < scene.children.length; i++) {
-	  var validate = true;
-	  for (var j = 0; j < save.length; j++) {
-	    if (scene.children[i].userData.pozX == save[j].pozX && scene.children[i].userData.pozY == save[j].pozY && scene.children[i].userData.pozZ == save[j].pozZ) {
-		  validate = false;
-		}
-	  }
-	  if (scene.children[i].name == "block" && validate == true) {
-	    if (scene.children[i].userData.pozX != null && scene.children[i].userData.pozY != null && scene.children[i].userData.pozZ != null && scene.children[i].userData.size != null && scene.children[i].userData.color != null && scene.children[i].userData.rotate != null)
-		  save.push({ nick: userName, pozX: scene.children[i].userData.pozX, pozY: scene.children[i].userData.pozY, pozZ: scene.children[i].userData.pozZ, size: scene.children[i].userData.size, color: scene.children[i].userData.color, rotate: scene.children[i].userData.rotate });
-	    }
-	  }
-	  client.emit("save", {
-	    save: save
-	  })
+      var validate = true;
+      for (var j = 0; j < save.length; j++) {
+        if (scene.children[i].userData.pozX == save[j].pozX && scene.children[i].userData.pozY == save[j].pozY && scene.children[i].userData.pozZ == save[j].pozZ) {
+          validate = false;
+        }
+      }
+      if (scene.children[i].name == "block" && validate == true) {
+        if (scene.children[i].userData.pozX != null && scene.children[i].userData.pozY != null && scene.children[i].userData.pozZ != null && scene.children[i].userData.size != null && scene.children[i].userData.color != null && scene.children[i].userData.rotate != null)
+          save.push({ nick: userName, pozX: scene.children[i].userData.pozX, pozY: scene.children[i].userData.pozY, pozZ: scene.children[i].userData.pozZ, size: scene.children[i].userData.size, color: scene.children[i].userData.color, rotate: scene.children[i].userData.rotate });
+        }
+      }
+      client.emit("save", {
+        save: save
+      })
   })
 }

@@ -44,8 +44,8 @@ module.exports = function () {
   // remove data - DELETE
   DeleteAll: function (Model) {
     Model.remove(function (err, data) {
-	  if (err) return console.error(err);
-	    // console.log(data);
+      if (err) return console.error(err);
+        // console.log(data);
       })
     },
   }

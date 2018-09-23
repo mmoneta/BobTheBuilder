@@ -7,7 +7,7 @@ module.exports = function (mongoose) {
     pozY: { type: Number },
     pozZ: { type: Number },
     size: { type: Number, min: 1, max: 4 },
-	rotate: { type: Number, min: 0, max: 3 },
+    rotate: { type: Number, min: 0, max: 3 },
     color: { type: String }
   });
 
@@ -15,6 +15,6 @@ module.exports = function (mongoose) {
   var models = {
     Player: mongoose.model("Player", playerSchema)  
   }
-  
+
   return models;
 }
