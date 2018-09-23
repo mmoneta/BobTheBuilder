@@ -1,4 +1,4 @@
-﻿// Export object containing basic MongoDB operations using the Mongoose library
+// Export object containing basic MongoDB operations using the Mongoose library
 module.exports = function () {
   var opers = {
   // inserting one record into the document - INSERT
@@ -8,10 +8,17 @@ module.exports = function () {
     })
   },
   // download all "records" from the document - SELECT
-  SelectAll: function (Model) {
+  SelectAll: function (Model, callback) {
+    var obj = {};
     Model.find({},function (err, data) {
-      if (err) return console.error(err);
-      // console.log(data);
+      if (err) {
+        obj.data = err;
+      }
+      else {
+        obj.data = data;
+      }
+      // function returning data outside
+      callback(data);
     })
   },
   // download with limited quantity and condition - WHERE, LIMIT
@@ -40,6 +47,19 @@ module.exports = function () {
       // function returning data outside
       callback(data);
     }).limit(count)
+  },
+  SelectWhere: function (Model, nick, callback) {
+    var obj = {};
+    Model.find({ nick: nick }, function (err, data) {
+      if (err) {
+        obj.data = err;
+      }
+      else {
+        obj.data = data;
+      }
+      // function returning data outside
+      callback(data);
+    })
   },
   // remove data - DELETE
   DeleteAll: function (Model) {
