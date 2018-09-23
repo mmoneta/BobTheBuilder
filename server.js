@@ -43,12 +43,12 @@ io.sockets.on("connection", function (client) {
     client.id = data.login;
     // Data for admin
     if (data.login == "admin" || data.login == "administrator") {
-      opers.SelectAndLimit(Models.Player, 100, function (data) {
+      opers.SelectAll(Models.Player, function (data) {
         io.sockets.emit("allData", { data: data });
       })
     }
     else {
-      opers.SelectLimitWhere(Models.Player, data.login, 100, function (data) {
+      opers.SelectWhere(Models.Player, data.login, function (data) {
         io.sockets.emit("thisData", { data: data });
       })
     }
