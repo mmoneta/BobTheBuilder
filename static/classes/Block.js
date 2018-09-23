@@ -1,18 +1,18 @@
-﻿function Klocek(myColor) {
+﻿function Block(myColor) {
 	// Material
 	if (myColor == null)
 		var material = new THREE.MeshPhongMaterial({ color: parseInt(colors[color_counter]) });
 	else
 		var material = new THREE.MeshPhongMaterial({ color: parseInt(myColor) });
 	// Geometry
-    var geometryA = new THREE.BoxGeometry(50, 30, 50);
-    var geometryB = new THREE.CylinderGeometry(6.25, 6.25, 5, 32);
+    var geometryA = new THREE.BoxGeometry(50, 30, 50),
+    geometryB = new THREE.CylinderGeometry(6.25, 6.25, 5, 32);
 	// Create elements without material
-    var cube = new THREE.Mesh(geometryA) 
-    var cylinder1 = new THREE.Mesh(geometryB);
-    var cylinder2 = new THREE.Mesh(geometryB);
-    var cylinder3 = new THREE.Mesh(geometryB);
-    var cylinder4 = new THREE.Mesh(geometryB);
+    var cube = new THREE.Mesh(geometryA),
+    cylinder1 = new THREE.Mesh(geometryB),
+    cylinder2 = new THREE.Mesh(geometryB),
+    cylinder3 = new THREE.Mesh(geometryB),
+    cylinder4 = new THREE.Mesh(geometryB);
     // Set positions
     cube.position.set(0,15,0)
     cylinder1.position.set(-12.5, 32.5, -12.5)

@@ -5,35 +5,53 @@
 	text-align: center;
 }
 
+body {
+	background-color: black;
+}
+
+#mainScreen, #loginScreen {
+	display: none;
+}
+
 #loginScreen {
-    position: fixed;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     height: 100vh;
     top: 0;
     left: 0;
-	background: #00ff00;
-    opacity: 0.8;
+	background: black;
 }
 
 #mainProcesses {
 	position: absolute;
-	top: 30vh;
-    left: 30vw;
-    width: 35vw;
-    height: 36vh;
-    border: 0.5vw solid green;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+    width: 60%;
+    height: 40%;
+    border: 3px solid white;
 }
 
 .main {
-    margin-left: 5vw;
-    margin-right: 5vw;
-    margin-top: 5vh;
-	width: 25vw;
-    height: 10vh;
-    font-size: 2vw;
+	width: 70%;
+    height: 30%;
+    font-size: 2em;
     text-align: center;
-    background: #00ff00;
-    border: 0.3vw solid green;
+    background: transparent;
+    border: 3px solid white;
+    color: white;
+}
+
+input::placeholder {
+	color: white;
+	font-style: italic;
+}
+
+#login {
+	font-weight: bold;
 }
 
 #statements {

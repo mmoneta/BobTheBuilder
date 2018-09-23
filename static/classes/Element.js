@@ -12,14 +12,14 @@
     var line = new THREE.Line(geometry, lineMaterial);
     line.position.set(posX - step / 2, 0, posZ - step / 2)
     line.name = "line"
-    var fill_material = new THREE.MeshPhongMaterial({ color: 0x3f9f62, side: THREE.DoubleSide });
-    var plane_geometry = new THREE.PlaneGeometry(step, step, 1);
-    var cylinder_geometry = new THREE.CylinderGeometry(6.25, 6.25, 7, 32);
-    var plane = new THREE.Mesh(plane_geometry)
-    var cylinder1 = new THREE.Mesh(cylinder_geometry);
-    var cylinder2 = new THREE.Mesh(cylinder_geometry);
-    var cylinder3 = new THREE.Mesh(cylinder_geometry);
-    var cylinder4 = new THREE.Mesh(cylinder_geometry);
+    var fill_material = new THREE.MeshPhongMaterial({ color: 0x3f9f62, side: THREE.DoubleSide }),
+    plane_geometry = new THREE.PlaneGeometry(step, step, 1),
+    cylinder_geometry = new THREE.CylinderGeometry(6.25, 6.25, 7, 32),
+    plane = new THREE.Mesh(plane_geometry),
+    cylinder1 = new THREE.Mesh(cylinder_geometry),
+    cylinder2 = new THREE.Mesh(cylinder_geometry),
+    cylinder3 = new THREE.Mesh(cylinder_geometry),
+    cylinder4 = new THREE.Mesh(cylinder_geometry);
     // Set positions
     plane.position.set(0, 0, 0)
     plane.rotateX(Math.PI / 2);

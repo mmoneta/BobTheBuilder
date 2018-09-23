@@ -1,53 +1,54 @@
 ﻿// Export object containing basic MongoDB operations using the Mongoose library
 module.exports = function () {
-    var opers = {
-        // inserting one record into the document - INSERT
-        InsertOne: function (data) {
-            data.save(function (error, data, dodanych) {
-                console.log("Dodano: " + data)
-            })
-        },
-        // download all "records" from the document - SELECT
-        SelectAll: function (Model) {
-            Model.find({},function (err, data) {
-                if (err) return console.error(err);
-                console.log(data);
-            })
-        },
-        // download with limited quantity and condition - WHERE, LIMIT
-        SelectAndLimit: function (Model, count, callback) {
-            var obj = {};
-            Model.find({}, function (err, data) {
-                if (err) {
-                    obj.data = err
-                }
-                else {
-                    obj.data = data
-                }
-                // function returning data outside
-                callback(data);
-            }).limit(count)
-        },
-        SelectLimitWhere: function (Model, nick, count, callback) {
-            var obj = {};
-            Model.find({ nick: nick }, function (err, data) {
-                if (err) {
-                    obj.data = err
-                }
-                else {
-                    obj.data = data
-                }
-                // function returning data outside
-                callback(data);
-            }).limit(count)
-        },
-        // remove data - DELETE
-        DeleteAll: function (Model) {
-			Model.remove(function (err, data) {
-				if (err) return console.error(err);
-				console.log(data);
-			})
-        },
-    }
-    return opers;
+  var opers = {
+  // inserting one record into the document - INSERT
+  InsertOne: function (data) {
+    data.save(function (error, data, callback) {
+      // console.log("Added: " + data)
+    })
+  },
+  // download all "records" from the document - SELECT
+  SelectAll: function (Model) {
+    Model.find({},function (err, data) {
+      if (err) return console.error(err);
+      // console.log(data);
+    })
+  },
+  // download with limited quantity and condition - WHERE, LIMIT
+  SelectAndLimit: function (Model, count, callback) {
+    var obj = {};
+      Model.find({}, function (err, data) {
+        if (err) {
+          obj.data = err;
+      }
+      else {
+        obj.data = data;
+      }
+      // function returning data outside
+      callback(data);
+    }).limit(count)
+  },
+  SelectLimitWhere: function (Model, nick, count, callback) {
+    var obj = {};
+    Model.find({ nick: nick }, function (err, data) {
+      if (err) {
+        obj.data = err;
+      }
+      else {
+        obj.data = data;
+      }
+      // function returning data outside
+      callback(data);
+    }).limit(count)
+  },
+  // remove data - DELETE
+  DeleteAll: function (Model) {
+    Model.remove(function (err, data) {
+	  if (err) return console.error(err);
+	    // console.log(data);
+      })
+    },
+  }
+  
+  return opers;
 }

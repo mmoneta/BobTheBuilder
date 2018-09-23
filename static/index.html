@@ -1,53 +1,51 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Bob The Builder</title>
-	<!-- Three.js -->
-    <script src="libs/three.js"></script>
-	<!-- Font -->
-    <script src="font/BenchNine_Regular.js"></script>
-	<!-- Main class -->
-    <script src="Main.js"></script>
-	<!-- Intro -->
-    <script src="classes/Intro.js"></script>
-	<!-- Project activity -->
-    <script src="classes/Game.js"></script>
-	<!-- Grid elements -->
-    <script src="classes/Element.js"></script>
-	<!-- Block -->
-    <script src="classes/Klocek.js"></script>
-    <!-- Communication with the server -->
-    <script src="classes/Net.js"></script>
-	<!-- Socket.io -->
-	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script>
-		var game = null;
-		var userName = null;
-		var adminState = false;
-		var introExist = true;
-        window.addEventListener("load", function() {
-			document.getElementById("loginScreen").style.display = "none";
-			document.getElementById("statements").style.display = "none";
-            var main = new Main();
-            var net = new Net();
-        })
-    </script> 
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
+  <title>Bob The Builder</title>
+  <!-- Three.js -->
+  <script src="libs/three.js"></script>
+  <!-- Font -->
+  <script src="font/BenchNine_Regular.js"></script>
+  <!-- Main class -->
+  <script src="Main.js"></script>
+  <!-- Intro -->
+  <script src="classes/Intro.js"></script>
+  <!-- Project activity -->
+  <script src="classes/Game.js"></script>
+  <!-- Grid elements -->
+  <script src="classes/Element.js"></script>
+  <!-- Block -->
+  <script src="classes/Block.js"></script>
+  <!-- Communication with the server -->
+  <script src="classes/Net.js"></script>
+  <!-- Socket.io -->
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script>
+    var game = null,
+    userName = null,
+    adminState = false,
+    introExist = true;
+    window.addEventListener("load", function() {
+      var main = new Main(),
+      net = new Net();
+    })
+  </script> 
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body oncontextmenu="return false;">
-	<div id="mainScreen">
-		<div id="statements">
-			<div id="header">Active users</div>
-			<div id="userInfo"></div>
-		</div>
-		<div id="field"></div>
-		<button id="save">SAVE</button>
-	</div>
-	<div id="loginScreen">
-		<div id="mainProcesses">
-			<input type="text" id="username" class="main" style="width: 24.5vw;" /><br />
-			<input type="button" value="LOGUJ" id="login" class="main" /><br />
-		</div>
-	</div>
+  <div id="field"></div>
+  <div id="mainScreen">
+    <div id="statements">
+      <div id="header">Active users</div>
+      <div id="userInfo"></div>
+    </div>
+  </div>
+  <div id="loginScreen">
+    <div id="mainProcesses">
+      <input type="text" id="username" class="main" placeholder="Username" /><br />
+      <input type="button" value="JOIN TO THE GAME" id="login" class="main" />
+    </div>
+  </div>
+  <button id="save">SAVE</button>
 </body>
 </html>
