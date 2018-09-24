@@ -55,7 +55,7 @@ io.sockets.on("connection", function (client) {
   });
 
   client.on("save", function (data) {
-  	opers.DeleteWhere(Models.Player, data.save[0].nick);
+    opers.DeleteWhere(Models.Player, data.save[0].nick);
     for (var i = 0; i < data.save.length; i++) {
       var user = new Models.Player({
         nick: data.save[i].nick,
