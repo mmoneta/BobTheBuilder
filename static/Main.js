@@ -32,6 +32,11 @@
   renderer.shadowMapEnabled = true;
   renderer.shadowMapType = THREE.PCFSoftShadowMap;
 
+
+  window.onresize = function(event) {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  };
+
   // Raycasting
   raycaster = new THREE.Raycaster();
   mouseVector = new THREE.Vector2();
@@ -327,5 +332,6 @@
       client.emit("save", {
         save: save
       })
+      console.log(save);
   })
 }

@@ -117,6 +117,7 @@
         size = data.data[i].size,
         rotate = data.data[i].rotate,
         importBlock = game.create(pozX, pozY,pozZ, size, color);
+        importBlock.userData.rotate = rotate;
         scene.add(importBlock);
         if (rotate != 0) {
           for (var j = 0; j < rotate; j++) {
@@ -137,8 +138,9 @@
         pozZ = data.data[i].pozZ,
         color = data.data[i].color,
         size = data.data[i].size,
-        rotate = data.data[i].rotate,
+        rotate = data.data[i].rotate;
         importBlock = game.create(pozX, pozY, pozZ, size, color);
+        importBlock.userData.rotate = rotate;
         scene.add(importBlock);
         if (rotate != 0) {
           for (var j = 0; j < rotate; j++) {

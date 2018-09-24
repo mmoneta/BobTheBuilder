@@ -43,18 +43,19 @@ io.sockets.on("connection", function (client) {
     client.id = data.login;
     // Data for admin
     if (data.login == "admin" || data.login == "administrator") {
-      opers.SelectAndLimit(Models.Player, 100, function (data) {
+      opers.SelectAll(Models.Player, function (data) {
         io.sockets.emit("allData", { data: data });
       })
     }
     else {
-      opers.SelectLimitWhere(Models.Player, data.login, 100, function (data) {
+      opers.SelectWhere(Models.Player, data.login, function (data) {
         io.sockets.emit("thisData", { data: data });
       })
     }
   });
 
   client.on("save", function (data) {
+  	opers.DeleteWhere(Models.Player, data.save[0].nick);
     for (var i = 0; i < data.save.length; i++) {
       var user = new Models.Player({
         nick: data.save[i].nick,
@@ -66,7 +67,7 @@ io.sockets.on("connection", function (client) {
         color: data.save[i].color
       });
       user.validate(function (err) {
-        console.log(err);
+        // console.log(err);
       });
       opers.InsertOne(user);
     }
