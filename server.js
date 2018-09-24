@@ -55,21 +55,23 @@ io.sockets.on("connection", function (client) {
   });
 
   client.on("save", function (data) {
-  	opers.DeleteWhere(Models.Player, data.save[0].nick);
-    for (var i = 0; i < data.save.length; i++) {
-      var user = new Models.Player({
-        nick: data.save[i].nick,
-        pozX: data.save[i].pozX,
-        pozY: data.save[i].pozY,
-        pozZ: data.save[i].pozZ,
-        size: data.save[i].size,
-        rotate: data.save[i].rotate,
-        color: data.save[i].color
-      });
-      user.validate(function (err) {
-        // console.log(err);
-      });
-      opers.InsertOne(user);
+  	opers.DeleteWhere(Models.Player, client.id);
+    if (data.save.length > 0) {
+      for (var i = 0; i < data.save.length; i++) {
+        var user = new Models.Player({
+          nick: client.id,
+          pozX: data.save[i].pozX,
+          pozY: data.save[i].pozY,
+          pozZ: data.save[i].pozZ,
+          size: data.save[i].size,
+          rotate: data.save[i].rotate,
+          color: data.save[i].color
+        });
+        user.validate(function (err) {
+          // console.log(err);
+        });
+        opers.InsertOne(user);
+      }
     }
   });
 

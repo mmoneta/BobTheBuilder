@@ -3,7 +3,6 @@
   var pozX, pozY, pozZ, counter, currentBlock, 
   options = false,
   block = false,
-  rotateCounter = 0,
   save = [];
 
   // View
@@ -256,22 +255,19 @@
         break;
       //  Resizing (T)
       case 84:
-        counter++;
-        var rotate = currentBlock.userData.rotate;
-        if (counter <= 4) {
+        currentBlock.userData.size++;
+        if (currentBlock.userData.size <= 4) {
           scene.remove(currentBlock);
-          currentBlock = game.create(pozX, pozY, pozZ, counter);
+          currentBlock = game.create(pozX, pozY, pozZ, currentBlock.userData.size);
           scene.add(currentBlock);
         }
         else {
           scene.remove(currentBlock);
           currentBlock = game.create(pozX, pozY, pozZ, 1);
           scene.add(currentBlock);
-          counter = 1;
+          currentBlock.userData.size = 1;
         }
-        currentBlock.userData.size = counter;
-        currentBlock.userData.rotate = rotate;
-        for (var i = 0; i < rotate; i++) {
+        for (var i = 0; i < currentBlock.userData.rotate; i++) {
           currentBlock.rotateY(Math.PI / 2);
         }
         client.emit("zoom", {
@@ -284,13 +280,12 @@
         client.emit("rotate", {
           rotate: "yes"
         })
-        if (rotateCounter <= 2) {
-          rotateCounter++;
+        if (currentBlock.userData.rotate <= 2) {
+          currentBlock.userData.rotate++;
         }
         else {
-          rotateCounter = 0;
+          currentBlock.userData.rotate = 0;
         }
-        currentBlock.userData.rotate = rotateCounter;
         break;
       // Information about other active users
       case 85:
@@ -326,7 +321,7 @@
       }
       if (scene.children[i].name == "block" && validate == true) {
         if (scene.children[i].userData.pozX != null && scene.children[i].userData.pozY != null && scene.children[i].userData.pozZ != null && scene.children[i].userData.size != null && scene.children[i].userData.color != null && scene.children[i].userData.rotate != null)
-          save.push({ nick: userName, pozX: scene.children[i].userData.pozX, pozY: scene.children[i].userData.pozY, pozZ: scene.children[i].userData.pozZ, size: scene.children[i].userData.size, color: scene.children[i].userData.color, rotate: scene.children[i].userData.rotate });
+          save.push({pozX: scene.children[i].userData.pozX, pozY: scene.children[i].userData.pozY, pozZ: scene.children[i].userData.pozZ, size: scene.children[i].userData.size, color: scene.children[i].userData.color, rotate: scene.children[i].userData.rotate });
         }
       }
       client.emit("save", {

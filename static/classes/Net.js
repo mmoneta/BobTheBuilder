@@ -131,6 +131,7 @@
 
   client.on("thisData", function (data) {
     if (adminState == false) {
+      console.log(data.data)
       for (var i = 0; i < data.data.length; i++) {
         var nick = data.data[i].nick,
         pozX = data.data[i].pozX,
